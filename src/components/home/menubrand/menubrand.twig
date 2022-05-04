@@ -1,0 +1,32 @@
+
+{% set uniqueId = "id_7bb6dd11-aa94-4263-a14d-0b946413e860" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section data-id="features" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container-menudonars">
+    <div class="container-menudonars__list">
+      <ul class="container-menudonars__menu">
+        {% for item in content %}
+        <li class="container-menudonars__item container-menudonars__item{{item.class}}">
+          <a class="container-menudonars__link">{{item.title}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="container-menudonars__itemI">
+      <ul class="container-menudonars__iconI">
+        {% for item in items %}
+        <li class="container-menudonars__linkI">
+            <a  class="{{item.name}} {{item.style}}">
+              <i class="{{item.icon}} {{item.position}}"></i>
+            </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>

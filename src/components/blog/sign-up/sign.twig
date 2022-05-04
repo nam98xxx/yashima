@@ -1,0 +1,30 @@
+
+{% set uniqueId = "id_5f463ba4-cfba-469b-9d9c-2bf02581e903" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="pt:80px" data-id="Blogs" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="signup">
+    <div class="signup__contain">
+      <div class="signup__sub">
+        <h5 class="signup__heading">
+          Sign-up for LogoNews
+        </h5>
+      </div>
+      <div class="signup__sub signup__description">
+        <span class="signup__text">Stay informed about the latest style advice and product launches.Learn more about our emails and our Privacy Policy.</span>
+      </div>
+      <div class= "signup__sub signup__emailB">
+        <input type="text" style="background-color:#fff; border-radius:initial;" class="signup__email" placeholder="Email address">
+        <div class="signup__button">
+              <div class="signup__text c:#fff fz:12px p:0_25px">SUBSCRIBE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

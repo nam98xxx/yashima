@@ -1,0 +1,26 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append:
+general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append:
+general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size |
+append: ';' : '' %}
+
+<section data-id="categories" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="slider4">
+    <div class="row slider4__box">
+      <div class="col-lg-6 slider4__contain">
+        <div class="slider4__heading">
+          <div class="slider4__heading1">{{content.heading}}</div>
+        </div>
+        <div class="slider4__title">
+          <h1 class="slider4__title1">{{content.title}}</h1>
+        </div>
+        <div class="slider4__content">
+          <div class="slider4__content1">{{content.description}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

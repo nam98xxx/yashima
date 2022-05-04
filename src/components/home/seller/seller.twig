@@ -1,0 +1,75 @@
+
+{% set uniqueId = "id_b57b919e-7a6c-4728-bbf2-a41d53bee49a" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="pt:50px" data-id="Seller" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="content-text">
+      <div class="content-text__headline">
+        <h3>{{heading.title}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      {% for item in content %}
+      <div class="col-lg-3 col-md-6 col-xs-6">
+        <div class="box-new">
+          <div class="box-new__img">
+            <img src="{{item.img}}" alt="">
+            <div class="box-new__buy">
+              <p>ADD TO CART</p>
+            </div>
+            <div class="box-new__icon">
+              <div class="box-new__arc" data-tooltip="Add to wish list">
+                <i class="far fa-heart"></i>
+              </div>
+              <div class="box-new__arc box-new__arc--display" data-tooltip = "Quick view">
+                <i class="far fa-eye"></i>
+              </div>
+              <div class="box-new__arc box-new__arc--display" data-tooltip = "Compare to other product">
+                <i class="fas fa-exchange-alt"></i>
+              </div>
+            </div>
+            {% if item.id3 or item.id4 %}
+            <div class="box-new__signs bgc:#9b51e0">
+              <div>-50%</div>
+            </div>
+          {% elseif item.id7 or item.id8 %}
+            <div class="box-new__signs bg:#219653">
+              <div>SALE</div>
+            </div>
+          {% else %}
+          {% endif %}
+          </div>
+          <div class="box-new__description">
+            <div class="box-new__text box-new__heading">
+              <p class="box-new__heading1">{{item.text1}}</p>
+            </div>
+            <div class="box-new__text box-new__define">
+              <p class="box-new__define1">{{item.text2}}</p>
+            </div>
+            <div class="box-new__text box-new__priceTrue">
+              <ins class="box-new__define2 C(#af0707) ">{{item.text3True}}</ins>
+            </div>
+            <div class="box-new__text box-new__priceFalse">
+              <del class="box-new__define3">{{item.text3False}}</del>
+            </div>
+          </div>
+          <div class="box-new__color">
+            <div class=" box-new__cirkle box-new__color{{item.class3}} bgc:#ffd860"> </div>
+            <div class=" box-new__cirkle box-new__color{{item.class1}} bgc:#c3dee4"></div>
+            <div class=" box-new__cirkle box-new__color{{item.class2}} bgc:#8667de"></div>
+            <div class=" box-new__cirkle box-new__color{{item.class4}} bgc:#8667de"></div>
+            <div class=" box-new__cirkle box-new__color{{item.class5}}">{{item.number}}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

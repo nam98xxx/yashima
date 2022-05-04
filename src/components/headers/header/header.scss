@@ -1,0 +1,45 @@
+.pet-nav__list-item {
+  &:hover {
+    > .pet-nav__sub-list {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.pet-nav__sub-list {
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.pet-nav--mobile {
+  .pet-nav__sub-list,
+  .pet-nav__menu {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #eee;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 0;
+    border: 0;
+  }
+  .pet-nav__sub-list {
+    position: absolute;
+    width: 100%;
+  }
+  .pet-nav__list-item {
+    position: static;
+  }
+  .pet-nav__link {
+    height: 50px;
+  }
+}

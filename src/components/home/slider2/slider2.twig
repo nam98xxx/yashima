@@ -1,0 +1,27 @@
+
+{% set uniqueId = "id_30a81f58-d640-4a66-8a74-a1172fd15680" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="pt:50px" data-id="Slider1" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container-instily2">
+    <div class="row container-instily__box2">
+      <div class="col-lg-6 container-instily__contain">
+        <div class="container-instily__heading">
+          <div class="container-instily__heading1">{{content.heading}}</div>
+        </div>
+        <div class="container-instily__title">
+          <h1 class="container-instily__title1">{{content.title}}</h1>
+        </div>
+        <div class="container-instily__content">
+          <div class="container-instily__content1">{{content.description}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

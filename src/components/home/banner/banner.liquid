@@ -1,0 +1,28 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append:
+general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append:
+general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size |
+append: ';' : '' %}
+
+<section data-id="features" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="pos:relative">
+      <img class="w:100%" src="{{ banner.image }}" alt="" />
+      <div class="pos:absolute@md t:0 {{ banner.position == 'left' ? 'l:0' : 'r:0' }} w:100% w:50%@md h:100% d:flex fld:column jc:center p:6%" css="text-align: {{ banner.align }}">
+        {% if banner.sub_title %}
+          <h5 class="fz:17px mb:10px">{{ banner.sub_title }}</h5>
+        {% endif %}
+        <h3 class="fz:30px fz:50px@md mb:25px">{{ banner.title }}</h3>
+        <div class="c:color-gray9">{{ banner.description }}</div>
+        <div>
+          {% if banner.button_text %}
+            <a href="#" class="core-btn core-btn--primary h:50px h:70px@md bdrs:40px mt:30px mt:40px@md pl:70px pr:70px">{{ banner.button_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+
+{% set uniqueId = "id_c441a21e-5152-4ac6-8d6e-5d7f2a1f8b1c" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section data-id="features" style="box-shadow: 0px 8px 20px 7px rgb(0 0 0 / 2%);" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container-box">
+    <ul class="container-box__menu">
+      {% for item in content %}
+      <li class="container-box__item">
+        <a href="{{item.href}}" class="container-box__link">{{item.title}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="box-search" style="padding:unset">
+      <div class="box-search">
+        <input type="text" class="box-search__input" placeholder="Search">
+        <div class="box-search__icon">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+    </div>
+    <i class="fas fa-bars barsMobile"></i>
+  </div>
+  <div class="container-box__mobile pos:fixed t:0 l:0 z:999 w:100% h:100% d:none">
+    <div class="container-box__overlay pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+    <ul class="menu-mobile w:100% m:0_100px h:80vh bd:1px_solid_red bgc:#fff ov:hidden">
+      {% for item in content %}
+      <li class="container-box__item--mobile p:12px">
+        <a href="{{item.href}}" class="container-box__link--menu c:black">{{item.title}}</a>
+      </li>
+      {% endfor %}
+      <div class="box-search__mobile m:12px" style="padding:unset">
+        <div class="box-search__mobile">
+          <input type="text" class="box-search__input-mobile;" placeholder="Search">
+          <div class="box-search__icon-mobile">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+.number {
+  display: flex;
+}
+.number__page {
+  border: 1px solid var(--color-gray3);
+  margin-right: 5px;
+}
+.number__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  font-weight: 800;
+}

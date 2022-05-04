@@ -1,0 +1,227 @@
+
+{% set uniqueId = "id_96a14921-5bbf-4453-952f-dcbc5d122fc0" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section data-id="categories" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    {% set collection = collections[content.collection] %}
+    <div class="adress p:30px_0px">
+      <div class="adress__text">
+        Home >
+      </div>
+      <div class="adress__text2"> Product </div>
+    </div>
+    <div class="row pb:100px">
+      <div class="col-lg-8" style="padding-right:64px;">
+        <div class="home-filter pb:30px">
+          <div class="home-filter__label">
+            <div class="home-filter__text">View as:</div>
+            <div class="home-filter__icon mr:10px fw:300">
+              <i class="fa-solid fa-table-list home-filter__icon1"></i>
+            </div>
+            <div class="home-filter__icon">
+              <i class="fa-solid fa-table-cells home-filter__icon2"></i>
+            </div>
+          </div>
+          <div class="home-filter__size">
+            <p class="home-filter__text">Short by</p>
+            <div class="home-filter__search">
+              <input type="text" class="home-filter__input" placeholder="Abcxyz">
+            </div>
+          </div>
+        </div>
+        <div class="row product2-new1">
+          {% for item in collection.products %}
+          <div class="col-lg-4">
+            <div class="box-new pos:relative">
+              <a href="{{ item.url }}" class="">
+                <div class="box-new__img core-image-cover" style="height:100%;" css="--aspect-ratio: 3/2">
+                  <img src="{{item.featured_image.src | img_url('1000x')}}" alt="">
+                  <div class="box-new__buy">
+                    <p>ADD TO CART</p>
+                  </div>
+                  <div class="box-new__icon">
+                    <div class="box-new__arc" data-tooltip="Add to wish list">
+                      <i class="far fa-heart"></i>
+                    </div>
+                    <div class="box-new__arc box-new__arc--display" data-tooltip="Quick view">
+                      <i class="far fa-eye"></i>
+                    </div>
+                    <div class="box-new__arc box-new__arc--display" data-tooltip="Compare to other product">
+                      <i class="fas fa-exchange-alt"></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              {% if item.compare_at_price > item.price and content.sale_enable %}
+              <div
+                class="pos:absolute t:20px l:20px pt:4px pr:10px pb:4px pl:10px bgc:#ff5656 c:color-light-freeze bdrs:4px w:63px h:30px ta:center"
+                css="{{ content.sale_design }}">{{ content.sale_text }}</div>
+              {% endif %}
+            </div>
+            <div class="box-new__body">
+              <h2 class="box-new__title fz:16px mt:10px mb:10px ta:center">
+                <a href="{{ item.url }}" class="box-new__name fw:600 c:color-gray9">{{ item.title }}</a>
+              </h2>
+            </div>
+            <div class="mt:10px ta:center">
+              <ins class="fw:400 c:color-primary td:none p:2px">${{ item.price }}</ins>
+              {% if item.compare_at_price > item.price %}
+              <del class="p:2px">${{ item.compare_at_price }}</del>
+              {% endif %}
+            </div>
+            <div class="box-new__color">
+              <div class=" box-new__cirkle box-new__color{{item.class3}} bgc:#ffd860"> </div>
+              <div class=" box-new__cirkle box-new__color{{item.class1}} bgc:#c3dee4"></div>
+              <div class=" box-new__cirkle box-new__color{{item.class2}} bgc:#8667de"></div>
+              <div class=" box-new__cirkle box-new__color{{item.class4}} bgc:#8667de"></div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="product2-new" style="display:none">
+          {% for item in content7.item %}
+            <div class="container pb:40px">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="product2-new__img h:100%"s>
+                    <img src="{{item.img}}" class="h:100%" alt="">
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="product2__box">
+                    <div class="product2__heading">
+                      <p class="product2__headingText">
+                        {{item.heading}}
+                      </p>
+                    </div>
+                    <div class="product2__des">
+                      <p class="product2__desText">
+                        {{item.description}}
+                      </p>
+                    </div>
+                    <div class="rate d:flex">
+                      <div class="rate__start">
+                        <i class="fa-regular fa-star rate__icon"></i>
+                      </div>
+                      <div class="rate__start">
+                        <i class="fa-regular fa-star rate__icon"></i>
+                      </div>
+                      <div class="rate__start">
+                        <i class="fa-regular fa-star rate__icon"></i>
+                      </div>
+                      <div class="rate__start">
+                        <i class="fa-regular fa-star rate__icon"></i>
+                      </div>
+                      <div class="rate__start">
+                        <i class="fa-regular fa-star rate__icon"></i>
+                      </div>
+                    </div>
+                    <div class="product2__price">
+                      <p class="product2__priceText">
+                        {{item.price}}
+                      </p>
+                    </div>
+                    {{cirkle.render()}}
+                    <div class="product2__content">
+                      <p class="product2__text">
+                        {{item.text}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="button-cart">
+                    <a class="button-cart__text c:#fff" >ADD TO CART</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="filter">
+          <div class="filter__search" style="margin-bottom:25px;">
+            <h6 class="filter__heading">Search</h6>
+            <input type="text" class="filter__input" placeholder="Tìm Kiếm">
+          </div>
+          <div class="filter__ref" style="margin-bottom:25px;">
+            <div class="filter__box1 d:flex jc:space-between">
+              <h6 class="filter__heading">{{content1.heading}}</h6>
+              <div class="filter__headingsub">{{content1.headingsub}}</div>
+            </div>
+            <ul class="filter__box2 d:flex" style="margin-bottom:25px;">
+              {% for item in content1.item %}
+              <li class="filter__text p:0px_5px bd:1px_solid_var(--color-gray3) mr:5px">
+              {{item.item1}}
+              <i class="fa-solid fa-xmark fz:14px c:#929292 ml:5px"></i>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="filter__catergor" style="margin-bottom:25px;">
+            <h6 class="filter__heading">{{content2.heading}}</h6>
+            <ul class="filter__list pl:20px list:inherit">
+              {% for item in content2.item %}
+              <li class="filter__item">{{item.item1}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="filter__color" style="margin-bottom:25px;">
+            <h6 class="filter__heading">{{content3.heading}}</h6>
+            {% for item in content3.item %}
+            <div class="filter__colorI filter__item{{item.id}} bgc:#ffd860"></div>
+            {% endfor %}
+          </div>
+          <div class="filter__size" style="margin-bottom:25px;">
+            <h6 class="filter__heading">{{content4.heading}}</h6>
+            {% for item in content4.item %}
+            <div class="filter__sizeBox">
+              <p class="filter__sizeText">{{item.item1}}</p>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="filter__brand" style="margin-bottom:25px;">
+            <h6 class="filter__heading">{{content5.heading}}</h6>
+            <ul class="filter__list pl:20px list:inherit">
+              {% for item in content5.item %}
+              <li class="filter__link">{{item.item1}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="filter__tags">
+            <h6 class="filter__heading">{{content6.heading}}</h6>
+            {% for item in content6.item %}
+            <div class="filter__tagsBox">
+              <p class="filter__tagsText">{{item.item1}}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="number pt:40px">
+        <div class="number__page">
+          <p class="number__text">1</p>
+        </div>
+        <div class="number__page">
+          <p class="number__text">2</p>
+        </div>
+        <div class="number__page">
+          <p class="number__text">3</p>
+        </div>
+        <div class="number__page">
+          <p class="number__text">4</p>
+        </div>
+        <div class="number__page">
+          <p class="number__text">-></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="./products.js"></script>

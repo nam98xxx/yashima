@@ -1,0 +1,20 @@
+
+{% set uniqueId = "id_65c3da8c-f004-4808-a360-8b948826719f" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section data-id="features" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class=" core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    {% if use_banner_image %}
+      <img src="{{ banner_image }}" alt="" width="100%" />
+    {% else %}
+      {{ banner_builder.title }}
+      {{ banner_builder.description }}
+    {% endif %}
+  </div>
+</section>

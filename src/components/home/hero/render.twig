@@ -1,0 +1,9 @@
+
+{% set uniqueId = "id_5c62989c-b708-4e10-a2dc-4ef05b362538" %}
+{% include "./hero.twig" with {
+  general_settings: hero.general_settings,
+  title: hero.title,
+  description: hero.description,
+  button: hero.button,
+  decorate: hero.decorate
+} %}

@@ -1,0 +1,24 @@
+$uniqueId: 'hero';
+$container: "[data-id='#{$uniqueId}']";
+$height: 70vh;
+
+.pet-hero__title {
+  font-size: pfs(30px, 50px);
+}
+
+.pet-hero__description {
+  margin-top: pfs(10px, 27px);
+  font-size: pfs(16px, 20px);
+}
+
+.pet-hero__btn {
+  border-radius: 10px;
+  min-width: 400px;
+  height: pfs(50px, 70px);
+  margin-top: pfs(20px, 45px);
+  font-size: pfs(16px, 20px);
+  @include media-max(410) {
+    min-width: auto;
+    width: 100%;
+  }
+}

@@ -1,0 +1,31 @@
+
+{% set uniqueId = "id_e1918a12-a7a4-4f1d-aaae-f22c31796ea8" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="pt:100px" data-id="features" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="content-text">
+      <h3>{{heading.title}}</h3>
+    </div>
+    <div class="row box-trend">
+      {% for item in content %}
+        <div class="col-lg-4 col-md-6 col-xs-12">
+          <div class="box-trend__{{item.id}}">
+            <img src="{{item.img}}" alt="" class="box-trend__img">
+            <div class="P(11px) box-trend__description{{item.id}}">
+              <div class="box-trend__text">
+                {{item.description}}
+              </div>
+            </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

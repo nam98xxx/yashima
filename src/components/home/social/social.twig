@@ -1,0 +1,27 @@
+
+{% set uniqueId = "id_616b6487-5448-413f-9bd5-97396a0c22de" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="p:100px_0" data-id="Social" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container-social">
+    <div class="content-text">
+      <h3>{{heading.title}}</h3>
+       <div class = "content-text__description" >{{heading.description}}</div>
+    </div>
+    <div class="row social">
+      {% for item in content %}
+      <div class="col-lg-3 col-md-6 col-xs-6 social__box">
+        <div class="social__item">
+          <img src="{{item.img}}" alt="" class="social__img">
+         </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

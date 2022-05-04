@@ -1,0 +1,125 @@
+
+{% set uniqueId = "id_3dc2cdf6-3c9c-425c-bf0f-69552ce3215e" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section data-id="Blogs" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    {% set blog = blogs[content.blog] %}
+    <div class="adress">
+      <div class="adress__text">
+        Home >
+      </div>
+      <div class="adress__text2">
+        Block
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8" style = "padding-right:64px">
+        {% for item in blog.articles  %}
+        <div class="block" style = "margin-bottom:60px">
+          <div class="block__image">
+            <img src="{{item.image.src | img_url('1000x')}}" alt="" class="block__img">
+          </div>
+          <div class="statsbar d:flex pt:10px">
+            <div class="statsbar__box">
+              <div class="statsbar__icon">
+                <i class="fas fa-history"></i>
+              </div>
+              <div class="statsbar__date">{{item.image.created_at}}</div>
+            </div>
+            <div class="statsbar__box">
+              <div class="statsbar__icon">
+                <i class="fa-solid fa-box-archive"></i>
+              </div>
+              <div class="statsbar__tag">Tips & Tricks</div>
+            </div>
+            <div class="statsbar__box">
+              <div class="statsbar__icon">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="statsbar__description">Fashion, store, shopify</div>
+            </div>
+          </div>
+          <div class="block__info pt:20px pb:20px">
+            <h6 class="block__heading fz:35px">{{item.title}}</h6>
+            <div class="block__description c:var(--color-dark)">{{item.content}}</div>
+          </div>
+          <div class="button-read">
+            <div class="button-read__text">
+                Read More
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="number jc:center">
+          <div class="number__page">
+            <p class="number__text">1</p>
+          </div>
+          <div class="number__page">
+            <p class="number__text">2</p>
+          </div>
+          <div class="number__page">
+            <p class="number__text">3</p>
+          </div>
+          <div class="number__page">
+            <p class="number__text">4</p>
+          </div>
+          <div class="number__page">
+            <p class="number__text">-></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="sidebar">
+          <div class="sidebar__box">
+            <h6 class="sidebar__heading">Search</h6>
+            <input type="text" class="sidebar__input" style="border-radius:initial;" placeholder="Tìm Kiếm">
+          </div>
+          <div class="sidebar__box">
+            <h6 class="sidebar__heading">{{text1.heading}}</h6>
+            {% for item in text1.item %}
+              <div class="sidebar__contain">
+                <div class="sidebar__img">
+                  <img src="{{item.img}}" alt="">
+                </div>
+                <div class="sidebar__desctiption">
+                  <div class="sidebar__content">{{item.text}}</div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="sidebar__bg">
+            <img src="{{text2.img}}" alt="">
+          </div>
+          <div class="sidebar__box">
+            <h6 class="sidebar__heading">{{text2.heading}}</h6>
+              {% for item in text2.item %}
+                <div class="sidebar__text">
+                  <div class="sidebar__letter" > {{item.text}} </div>
+                </div>
+              {% endfor %}
+          </div>
+          <div class="sidebar__box">
+            <h6 class="sidebar__heading">{{text3.heading}}</h6>
+            <div class="sidebar__quote">
+              {{text3.text}}
+            </div>
+          </div>
+          <div class="sidebar__box sidebar__sub">
+            <input type="text" class="sidebar__input" style="border-radius:initial;" placeholder="Your Email">
+            <div class="sidebar__get">
+              <div class="sidebar__select">GET</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,53 @@
+
+{% set uniqueId = "id_4b4a9c52-07f9-45cd-b340-faba0d1f9a21" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="pb:80px" data-id="Blogs" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="adress">
+      <div class="adress__text">
+        Home >
+      </div>
+      <div class="adress__text2">
+        Account
+      </div>
+    </div>
+    <div class="row account jc:space-around p:0px_80px">
+      <div class="col-lg-12">
+        <div class="account__heading ta:center">
+          <div class="account__text fz:35px c:var(--color-dark)">Log in</div>
+          <div class="account__sub c:var(--color-dark) fz:25px">Lorem ipsum dolor sit amet, consectetur adipiscing
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="account__reg">
+          <div class="account__heading fz:20px">New Customer</div>
+          <div class="account__text p:20px_0 ">Sign up for early Sale access plus tailored new arrivals, trends and
+            promotions. To opt out, click unsubscribe in our emails.</div>
+          <div class="account__button w:100% bgc:var(--color-dark) p:15px_0px">
+            <div class="ta:center c:var(--color-light)">Register</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <form class="account__sign">
+          <div class="account__sign fz:25px">Log In</div>
+          <input class="account__emai" style="margin-bottom:20px;" placeholder="Email" type="email" id="emails" name="emails" multiple>
+          <div class="m:20px_0"></div>
+          <input type="password" class="account__pass" name="" id="" placeholder="Password">
+          <div class="account__forgot p:20px_0px_30px_0">Forgot password?</div>
+          <div class="account__sign w:100% bgc:var(--color-dark) p:15px_0px">
+            <div class="ta:center c:var(--color-light)">Sign In</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

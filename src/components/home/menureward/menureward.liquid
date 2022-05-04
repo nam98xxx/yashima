@@ -1,0 +1,22 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+<section data-id="features
+" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay
+  " css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container-bg">
+    <div class="container-rewrard">
+      <div class="container-rewrard__box">
+        {% for item in content %}
+        <div class="container-rewrard__list">
+          <i class="fal fa-box-open"></i>
+          <a href="#" class="container-rewrard__link">{{item.title}}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

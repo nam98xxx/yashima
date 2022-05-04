@@ -1,0 +1,33 @@
+.signup {
+  display: flex;
+  background-color: #f2f7f7;
+  justify-content: center;
+}
+.signup__heading {
+  font-size: 35px;
+}
+.signup__contain {
+  width: 30%;
+  line-height: 2.5;
+  text-align: center;
+  padding: 40px 0px;
+}
+.signup__emailB {
+  padding:0 50px;
+  display: flex;
+  justify-content: center;
+}
+.signup__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: none;
+  margin-left: 15px;
+  background-color: var(--color-dark);
+  .signup__buttontText {
+    color: var(--color-light);
+  }
+}
+.signup__sub {
+  padding-bottom:20px ;
+}

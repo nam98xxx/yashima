@@ -1,0 +1,25 @@
+$uniqueId: 'products-with-sidebar';
+$container: "[data-id='#{$uniqueId}']";
+
+.pet-categories__list-item:not(.pet-categories__list-item--has-megamenu) {
+  position: relative;
+}
+
+.pet-categories__sub-list {
+  display: none;
+}
+
+// DEMO
+.pet-categories__sub-list--megamenu {
+  max-width: 900px !important;
+  height: 400px;
+}
+
+.pet-categories__list-item {
+  &:hover {
+    .pet-categories__sub-list {
+      display: block;
+    }
+  }
+}
+

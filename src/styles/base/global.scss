@@ -1,0 +1,44 @@
+body {
+  font-size: 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size:40px;
+  line-height: 1.35;
+  font-weight: 500;
+}
+.content-text__headline {
+  font-size: 40px;
+  font-weight: 500;
+  margin: 24px 0;
+}
+.content-text {
+  text-align: center;
+  padding-bottom: 25px;
+}
+body {
+  height: 5000px;
+}
+
+.top-btn {
+  all: unset;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 20px;
+  height:20px;
+  background-color:var(--color-dark);
+  border-radius:25px;
+  border: 1px solid var(--color-light);
+  cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  transform:scale(1.8);
+  opacity: 0;
+  transition: .3s;
+  .top-btn__icon {
+    font-size: 14px;
+    color: var(--color-light);
+  }
+}

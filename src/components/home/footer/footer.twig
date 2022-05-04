@@ -1,0 +1,80 @@
+
+{% set uniqueId = "id_59f0aae1-83b8-4e5a-90d5-5e43496f7b6c" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
+general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~ 
+general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section class="p:50px_0 bgc:#000" data-id="features" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container-footer">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="footer">
+          <div class="footer__heading">
+            <div class="footer__headingText footer__headingText{{content1.id}}">{{content1.heading}}</div>
+          </div>
+          <ul class="footer__description">
+            <li class="footer__description1">{{content1.description1}}</li>
+            <li class="footer__description1">{{content1.description2}}</li>
+            <li class="footer__description1">{{content1.description3}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="footer">
+          <div class="footer__heading footer__headingText{{content2.id}}">
+            <div class="footer__headingText">{{content2.heading}}</div>
+          </div>
+          <ul class="footer__description">
+            <li class="footer__description1">{{content2.description1}}</li>
+            <li class="footer__description1">{{content2.description2}}</li>
+            <li class="footer__description1">{{content2.description3}}</li>
+            <li class="footer__description1">{{content2.description4}}</li>
+            <li class="footer__description1">{{content2.description5}}</li>
+            <li class="footer__description1">{{content2.description6}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="footer">
+          <div class="footer__heading footer__headingText{{content3.id}}">
+            <div class="footer__headingText">{{content3.heading}}</div>
+          </div>
+          <ul class="footer__description">
+            <li class="footer__description1">{{content3.description1}}</li>
+            <li class="footer__description1">{{content3.description2}}</li>
+            <li class="footer__description1">{{content3.description3}}</li>
+            <li class="footer__description1">{{content3.description4}}</li>
+            <li class="footer__description1">{{content3.description5}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="footer">
+          <div class="footer__heading footer__headingText--{{content4.id}}">
+            <div class="footer__headingText">{{content4.heading}}</div>
+          </div>
+          <div class="footer__description">
+            <div class="footer__description1">{{content4.description1}}</div>
+          </div>
+          <div class="box-search1">
+            <input type="text" class="box-search__input1" placeholder="Search">
+            <div class="box-search__icon1">
+              <div>Join</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <div class="footer">
+          <div class="footer__heading footer__headingText{{content5.id}}">
+            <div class="footer__headingText">{{content5.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

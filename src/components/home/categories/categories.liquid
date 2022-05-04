@@ -1,0 +1,32 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append:
+general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append:
+general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size |
+append: ';' : '' %}
+
+<section class="pt:50px" data-id="categories" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="content-text">
+      <div class="content-text__headline">
+        <h3>{{heading.title}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      {% for item in content %}
+      <div class="col-lg-3 col-md-6 col-xs-6">
+        <div class="top">
+          <img src="{{item.img}}" alt="" class="top__img">
+          <div class="top__text">
+            <div class="top__description">
+              {{item.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

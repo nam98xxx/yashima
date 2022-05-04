@@ -1,0 +1,146 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+<section data-id="products-with-sidebar" class="pet-section pos:relative z:1 pt:50px pb:50px bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3">
+        {% if sidebar.categories and sidebar.categories_title %}
+          <div class="pos:relative bd:1px_solid_color-gray2 bdrs:10px mb:30px">
+            {% if sidebar.categories_title %}
+              <h3 class="fz:25px p:25px pt:20px pb:10px">{{ sidebar.categories_title }}</h3>
+            {% endif %}
+            {% if sidebar.categories %}
+              <ul class="mb:10px">
+                {% for category in sidebar.categories %}
+                  {% assign hasMegaMenu = category.hasMegaMenu %}
+                  {% if hasMegaMenu %}
+                    <li class="pet-categories__list-item pet-categories__list-item--has-megamenu">
+                  {% else %}
+                    <li class="pet-categories__list-item">
+                  {% endif %}
+                    <a class="pos:relative d:flex ai:center p:20px pt:10px pb:10px fz:16px c:color-gray9" href="{{ category.href }}">
+                      {% if category.iconEnabled %}
+                        <span class="mr:8px">{{ category.icon }}</span>
+                      {% endif %}
+                      <span>{{ category.label }}</span>
+                      {% if sidebar.caret_enabled and category.children | length > 0 %}
+                        <span class="pos:absolute t:50% r:20px trf:translateY(-50%) c:color-gray9"><i class="fal fa-angle-right"></i></span>
+                      {% endif %}
+                    </a>
+                    {% if category.children | length > 0 %}
+                    {% if hasMegaMenu %}
+                      <ul class="pet-categories__sub-list pet-categories__sub-list--megamenu pos:absolute t:0 l:100% z:999 w:100vw maw:300px bd:1px_solid_color-gray2 bdrs:10px p:25px pt:20px pb:20px bgc:color-light">
+                    {% else %}
+                      <ul class="pet-categories__sub-list pos:absolute t:0 l:100% z:999 w:100vw maw:300px bd:1px_solid_color-gray2 bdrs:10px p:25px pt:20px pb:20px bgc:color-light">
+                    {% endif %}
+                      {% for category in category.children %}
+                          <li class="pet-categories__list-item">
+                            {% if category.megaMenuEnabled %}
+                              <div class="pet-categories-megamenu">Megamenu</div>
+                            {% else %}
+                              <a class="pos:relative d:flex ai:center p:20px pt:10px pb:10px fz:16px c:color-gray9" href="{{ category.href }}">
+                                {% if category.iconEnabled %}
+                                  <span class="mr:8px">{{ category.icon }}</span>
+                                {% endif %}
+                                <span>{{ category.label }}</span>
+                                {% if sidebar.caret_enabled and category.children | length > 0 %}
+                                  <span><i class="fal fa-angle-right"></i></span>
+                                {% endif %}
+                              </a>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endif %}
+        <div class="pos:relative bdrs:10px ov:hidden mb:30px">
+          <img class="pet-banner__img" src="{{ sidebar.banner_img }}" alt="">
+          <div class="pos:absolute t:0 l:0 w:100% p:20px pl:25px pr:25px">
+            <h4 class="fz:14px fw:700 c:color-light-freeze">{{ sidebar.banner_sub_title }}</h4>
+            <h3 class="fz:20px fz:30px@md fw:700 c:color-light-freeze">{{ sidebar.banner_title }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <div class="pet-heading d:flex jc:space-between ai:flex-end mb:20px">
+          <div class="pet-heading__inner">
+            <h2 css="{{ heading.title_design }}">{{ heading.title }}</h2>
+            <div css="{{ heading.description_design }}">{{ heading.description }}</div>
+          </div>
+          {% if button_view_all.enable %}
+            <a class="core-btn core-btn--border p:20px pt:8px bdrs:40px pb:8px miw:160px" href="{{ button_view_all.link }}" target="{{ button_view_all.target }}" css="{{ button_view_all.design }}">
+              {{button_view_all.text}}
+            </a>
+          {% endif %}
+        </div>
+        <div component="content" class="row row-cols-lg-{{ content.column.lg }} row-cols-md-{{ content.column.md }} row-cols-sm-{{ content.column.sm }} row-cols-{{ content.column.xs }}">
+          {% assign collection = collections[content.collection] %}
+          {% assign quantity_product_displayed = content.quantity_product_displayed %}
+
+          {% for product in collection.products limit: quantity_product_displayed %}
+            <div class="col">
+              <div class="pet-product-card pos:relative p:10px ta:center bdrs:10px bd:1px_solid_color-gray2 h:100%">
+                <div class="bdrs:10px ov:hidden">
+                  <a href="{{ product.url }}">
+                    <div class="core-image-cover" css="--aspect-ratio: 3/2">
+                      <img src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
+                    </div>
+                  </a>
+                </div>
+                {% if product.compare_at_price > product.price and content.sale_enable %}
+                  <span class="pos:absolute t:20px l:20px pt:4px pr:10px pb:4px pl:10px bgc:#ff5656 c:color-light-freeze bdrs:4px" css="{{ content.sale_design }}">{{ content.sale_text }}</span>
+                {% endif %}
+                <div class="pet-product-card__body">
+                  <h2 class="pet-product-card__title fz:16px mt:10px mb:10px">
+                    <a href="{{ product.url }}" class="pet-product-card__name fw:600 c:color-gray9">{{ product.title }}</a>
+                  </h2>
+                  {% if content.review_app_enable %}
+                    {% if builderMode %}
+                      <div class="pet-product-card__rate fz:14px c:#feaa01">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                    {% else %}
+                      {% case content.review_app_app %}
+                        {% when 'product_reviews' %}
+                          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                        {% when 'rivyo_reviews' %}
+                          <div class="wc_product_review_badge" data-handle="{{ product.handle }}"></div>
+                        {% when 'loox_reviews' %}
+                          <a href="#looxReviews">
+                            <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                          </a>
+                        {% else %}
+                      {% endcase %}
+                    {% endif %}
+                  {% endif %}
+                  <div class="mt:10px">
+                    <ins class="fz:20px fw:700 c:color-primary td:none p:2px">${{ product.price }}</ins>
+                    {% if product.compare_at_price > product.price %}
+                      <del class="p:2px">${{ product.compare_at_price }}</del>
+                    {% endif %}
+                  </div>
+                  <a class="core-btn core-btn--primary bdrs:30px h:40px miw:160px mt:10px mb:15px" href="#" css="{{ content.add_to_cart_design }}">{{ content.add_to_cart_text }}</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

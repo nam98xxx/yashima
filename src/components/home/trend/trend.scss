@@ -1,0 +1,38 @@
+.box-trend__3,
+.box-trend__2,
+.box-trend__1 {
+  position: relative;
+}
+.box-trend__img {
+  width: 100%;
+}
+.box-trend__description1 {
+  position: absolute;
+  top: 40%;
+  right: 40%;
+  width: 202px;
+  height: 150px;
+  background-color: var(--color-dark);
+}
+.box-trend__description2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 322px;
+  height: 85px;
+  background-color: var(--color-dark);
+}
+.box-trend__description3 {
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  width: 210px;
+  height: 160px;
+  background-color: var(--color-dark);
+}
+.box-trend__text {
+  margin: unset;
+  color: var(--color-light);
+  font-size: 45px;
+}

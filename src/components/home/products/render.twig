@@ -1,0 +1,9 @@
+
+{% set uniqueId = "id_ee7e837b-2f65-442f-ad55-898e4ef25025" %}
+{% include "./products.twig" with {
+  general_settings: data.general_settings,
+  heading: data.heading,
+  button_view_all: data.button_view_all,
+  content: data.content,
+  sidebar: data.sidebar,
+} %}

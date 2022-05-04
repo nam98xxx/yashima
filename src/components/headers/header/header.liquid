@@ -1,0 +1,108 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+<section data-id="header" class="pet-section pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="d:flex ai:center jc:space-between pt:20px pb:20px">
+      <div class="flx:1 d:flex ai:center fz:15px fw:400 ta:left c:color-gray9">
+        <i class="far fa-map-marker-alt fw:400 fz:30px c:color-primary mr:20px"></i>
+        <div>523 Sylvan Ave <br>Mountain View, CA 94041</div>
+      </div>
+      <a href="{{ shop.domain }}">
+        <img src="img/logo.png" alt="">
+      </a>
+      <div class="flx:1"></div>
+    </div>
+  </div>
+  <div class="h:1px bgc:color-gray2"></div>
+  <div class="container">
+    <nav class="pet-nav d:flex ai:center jc:space-between mih:70px">
+      {% if navigation.menu %}
+        <ul class="pet-nav__menu d:flex">
+          {% for item in navigation.menu %}
+            {% assign hasMegaMenu = item.hasMegaMenu %}
+            {% if hasMegaMenu %}
+              <li class="pet-nav__list-item pet-nav__list-item--has-megamenu pos:relative">
+            {% else %}
+              <li class="pet-nav__list-item pos:relative">
+            {% endif %}
+              <a class="pet-nav__link pos:relative d:flex ai:center p:25px pt:10px pb:10px h:80px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+                {% if item.iconEnabled %}
+                  <span class="mr:8px">{{ item.icon }}</span>
+                {% endif %}
+                <span>{{ item.label }}</span>
+                {% if sidebar.caret_enabled and item.children | length > 0 %}
+                  <span class="pos:absolute t:50% r:20px trf:translateY(-50%) c:color-gray9"><i class="fal fa-angle-right"></i></span>
+                {% endif %}
+              </a>
+              {% if item.children | length > 0 %}
+                {% if hasMegaMenu %}
+                  <ul class="pet-nav__sub-list pet-nav__sub-list--megamenu pos:absolute t:100% l:0 z:999 w:100vw bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                {% else %}
+                  <ul class="pet-nav__sub-list pos:absolute t:100% l:0 z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                {% endif %}
+                {% for item in item.children %}
+                    <li class="pet-nav__list-item pos:relative bdb:1px_solid_color-gray2 bdb:0|lc">
+                      {% if item.megaMenuEnabled %}
+                        <div class="pet-nav__megamenu">Megamenu</div>
+                      {% else %}
+                        <a class="pet-nav__link pos:relative d:flex ai:center p:15px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+                          {% if item.iconEnabled %}
+                            <span class="mr:8px">{{ item.icon }}</span>
+                          {% endif %}
+                          <span>{{ item.label }}</span>
+                          {% if sidebar.caret_enabled and item.children | length > 0 %}
+                            <span><i class="fal fa-angle-right"></i></span>
+                          {% endif %}
+                        </a>
+                        {% if item.children | length > 0 %}
+                          <ul class="pet-nav__sub-list pos:absolute t:0 l:100% z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                            {% for item in item.children %}
+                              {% assign hasMegaMenu = item.hasMegaMenu %}
+                              <li class="pet-nav__list-item bdb:1px_solid_color-gray2 bdb:0|lc">
+                                {% if item.megaMenuEnabled %}
+                                  <div class="pet-nav__megamenu">Megamenu</div>
+                                {% else %}
+                                  <a class="pet-nav__link pos:relative d:flex ai:center p:15px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+                                    {% if item.iconEnabled %}
+                                      <span class="mr:8px">{{ item.icon }}</span>
+                                    {% endif %}
+                                    <span>{{ item.label }}</span>
+                                    {% if sidebar.caret_enabled and item.children | length > 0 %}
+                                      <span><i class="fal fa-angle-right"></i></span>
+                                    {% endif %}
+                                  </a>
+                                {% endif %}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="d:flex jc:center">
+        <div class="d:flex pos:relative">
+          <div class="c:color-gray6 pos:absolute t:50% l:10px trf:translateY(-50%)"><i class="far fa-search"></i></div>
+          <input class="w:135px! w:200px!|focus trs:0.3s! bdrs:10px! h:40px! p:0_15px_0_35px! fz:15px! color:color-gray6||ph!" type="text" placeholder="Search">
+        </div>
+        <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer">
+          <i class="fal fa-heart"></i>
+        </div>
+        <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer">
+          <i class="fal fa-shopping-basket"></i>
+        </div>
+      </div>
+
+    </nav>
+
+  </div>
+</section>

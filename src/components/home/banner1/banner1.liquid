@@ -1,0 +1,19 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append:
+general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append:
+general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size |
+append: ';' : '' %}
+
+<section data-id="features" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class=" core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    {% if use_banner_image %}
+      <img src="{{ banner_image }}" alt="" width="100%" />
+    {% else %}
+      {{ banner_builder.title }}
+      {{ banner_builder.description }}
+    {% endif %}
+  </div>
+</section>
