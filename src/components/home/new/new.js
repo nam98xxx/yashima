@@ -14,20 +14,22 @@ class CompareAdd {
         data: [],
         visible: false,
       },
-      useStorage: true
-    })
+      useStorage: true,
+    });
   }
 
   getData() {
     return store.get("compare");
   }
   handleCompares() {
-    let {data}= this.getData();
+    let { data } = this.getData();
     const contaiEl = document.querySelector(".contain-new");
     const compareEls = contaiEl.querySelectorAll(".btn-compare");
     compareEls.forEach((compareEl) => {
       const dataEl = compareEl.querySelector(".box-news__products-json");
-      let hasId = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
+      let hasId = !!data.find(
+        (item) => item.id === JSON.parse(dataEl.textContent).id
+      );
       if (hasId) {
         compareEl.style.backgroundColor = "#AF0707";
       }
@@ -39,10 +41,10 @@ class CompareAdd {
         } else {
           message.success(`Product add to cart`);
           store.set("compare", (items) => {
-           return {
-            ...items,
-            data: [...items.data ,JSON.parse(dataEl.textContent)]
-          };
+            return {
+              ...items,
+              data: [...items.data, JSON.parse(dataEl.textContent)],
+            };
           })("compare/Add");
           hasId = !hasId;
         }
@@ -61,39 +63,41 @@ class AddWishList {
   createAddList() {
     veda.utils.store.create("addList", {
       initialState: {
-        data:[],
+        data: [],
         visible: false,
       },
-      useStorage: true
+      useStorage: true,
     });
   }
   getData() {
     return store.get("addList");
   }
   handleAddList() {
-    const {data} = this.getData();
+    const { data } = this.getData();
     const contaiEl = document.querySelector(".contain-new");
     const wishlistEls = contaiEl.querySelectorAll(".btn-addlist");
     wishlistEls.forEach((item) => {
       const dataEl = item.querySelector(".box-news__products-json1");
-      let hasId = data.find((value) => value.id === JSON.parse(dataEl.textContent).id);
-      if(hasId) {
+      let hasId = data.find(
+        (value) => value.id === JSON.parse(dataEl.textContent).id
+      );
+      if (hasId) {
         item.style.backgroundColor = "#AF0707";
       }
       item.addEventListener("click", (e) => {
         e.preventDefault();
-        if(hasId){
+        if (hasId) {
           item.style.backgroundColor = "#AF0707";
-          message.error(`Product added to Wish List`)
+          message.error(`Product added to Wish List`);
         } else {
-          message.success(`Product add to Wish List`)
+          message.success(`Product add to Wish List`);
           store.set("addList", (wishlist) => {
             return {
               ...wishlist,
-              data: [...wishlist.data,JSON.parse(dataEl.textContent)]
-            }
+              data: [...wishlist.data, JSON.parse(dataEl.textContent)],
+            };
           })("wishList/Add");
-          hasId = !hasId
+          hasId = !hasId;
         }
       });
     });
@@ -216,21 +220,21 @@ class CardColors {
 }
 
 class QuickView {
-  constructor(){
+  constructor() {
     this.elIcons = document.querySelectorAll(".btn-quickView");
     this.el = this.createBoxQuickView();
     this.init();
     store.subscribe("viewVisible", this.init.bind(this));
   }
-  createBoxQuickView(){
+  createBoxQuickView() {
     const rootEl = document.querySelector("#root");
     const el = document.createElement("div");
     el.classList.add("quickView");
     rootEl.appendChild(el);
     return el;
   }
-  handleQuickView(){
-    this.elIcons.forEach((el,index) => {
+  handleQuickView() {
+    this.elIcons.forEach((el, index) => {
       const dataEl = el.querySelector(".box-news__products-json2");
       let data = JSON.parse(dataEl.textContent);
       el.addEventListener("click", () => {
@@ -260,23 +264,96 @@ class QuickView {
         </div>
         `;
         const closeEl = document.querySelector(".closeView");
-        if(closeEl){
-          closeEl.addEventListener("click",() => {
+        if (closeEl) {
+          closeEl.addEventListener("click", () => {
             this.el.innerHTML = " ";
-          })
+          });
         }
-      })
-    })
+      });
+    });
   }
 
-  init(){
+  init() {
     this.handleQuickView();
   }
 }
+
+class AddToCart {
+  constructor() {
+    this.elIcons = document.querySelectorAll(".box-new__buy");
+    this.init();
+  }
+  createCart() {
+    store.create("addCart", {
+      initialState: {
+        data: [],
+        visible: false,
+      },
+      useStorage: true,
+    });
+  }
+  getData() {
+    return store.get("addCart");
+  }
+  handleAddToCart() {
+    const { data } = this.getData();
+    this.elIcons.forEach((elIcon) => {
+      const dataEl = elIcon.querySelector(".box-news__products-json3");
+      const textEl = elIcon.querySelector(".box-new__buy-text");
+      let hasId = data.find(
+        (item) => item.id === JSON.parse(dataEl.textContent).id
+      );
+      if(hasId) {
+        elIcon.style.backgroundColor = "#AF0707";
+      }
+      const newData = {
+        quantity: 31,
+        title: "new",
+        price: 19768,
+        original_price: 10,
+        discounted_price: 88,
+        line_price: 4,
+        original_line_price: 28,
+        final_price: 49,
+      };
+      elIcon.addEventListener("click", (e) => {
+        e.preventDefault();
+        if(hasId) {
+          elIcon.style.backgroundColor = "#AF0707";
+          message.error(`Product added to Cart`);
+        } else { // Neu HasId chua co
+          const textDefault = textEl.innerHTML;
+          textEl.innerHTML = "...Loading";
+          fetch('https://6274cf2a3d2b51007430a81f.mockapi.io/Cart')
+          .then(res => res.json())
+          .then(data => {
+            store.set("addCart", state => {
+              return {
+                ...state,
+                data: [...state.data, JSON.parse(dataEl.textContent)]
+              }
+            })("add/cart")
+            hasId = !hasId;
+          })
+          .catch(err => console(err))
+          .finally(() => {
+            message.success(`Product add to Cart`);
+            textEl.innerHTML = textDefault;
+          })
+        }
+      })
+  })
+  }
+  init() {
+    this.createCart();
+    this.handleAddToCart();
+  }
+}
+
+new AddToCart();
 new AddWishList();
 new CompareAdd();
 new QuickView();
 const colorWrapEls = container.querySelectorAll(".box-new__color");
-console.log(colorWrapEls);
 colorWrapEls.forEach((el) => new CardColors(el));
 

@@ -6,9 +6,10 @@ general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size |
 append: ';' : '' %}
 
-<section data-id="features" style="box-shadow: 0px 8px 20px 7px rgb(0 0 0 / 2%);" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="features" style="box-shadow: 0px 8px 20px 7px rgb(0 0 0 / 2%);"
+  css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container-box">
+  <div class="container-box mt:75px">
     <ul class="container-box__menu">
       {% for item in content %}
       <li class="container-box__item">

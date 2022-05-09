@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c441a21e-5152-4ac6-8d6e-5d7f2a1f8b1c" %}
+{% set uniqueId = "id_4bf27682-a9f0-4228-bfee-964fbe0d293e" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
 general_settings.color ~  ';' : '' %}
@@ -7,9 +7,10 @@ general_settings.color ~  ';' : '' %}
 general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
-<section data-id="features" style="box-shadow: 0px 8px 20px 7px rgb(0 0 0 / 2%);" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="features" style="box-shadow: 0px 8px 20px 7px rgb(0 0 0 / 2%);"
+  css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container-box">
+  <div class="container-box mt:75px">
     <ul class="container-box__menu">
       {% for item in content %}
       <li class="container-box__item">

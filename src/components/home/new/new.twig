@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_7fa1fabc-03ba-45c8-8d80-069fced7c3ff" %}
+{% set uniqueId = "id_bd3367d6-e96a-4503-bab0-40efcc2ef44e" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
 general_settings.color ~  ';' : '' %}
@@ -23,7 +23,8 @@ general_settings.image ~
             <div class="box-new__img core-image-cover h:100%" css="--aspect-ratio: 3/2">
               <img class="pet-product-card__img" src="{{item.featured_image.src | img_url('1000x')}}" alt="">
               <div class="box-new__buy">
-                <p>ADD TO CART</p>
+                <p class = "box-new__buy-text">ADD TO CART</p>
+                <script class="box-news__products-json3" type="application/json" >{{item | json_encode()}}</script>
               </div>
               <div class="box-new__icon">
                 <div class="box-new__arc btn-addlist" data-tooltip="Add to wish list">

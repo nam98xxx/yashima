@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_7bb6dd11-aa94-4263-a14d-0b946413e860" %}
+{% set uniqueId = "id_4fd0546d-36ba-4a98-ac9d-07c2ce27d400" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,7 +7,7 @@
 
 <section data-id="features" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container-menudonars">
+  <div class="container-menudonars pos:fixed w:100% t:0 z:999">
     <div class="container-menudonars__list">
       <ul class="container-menudonars__menu">
         {% for item in content %}

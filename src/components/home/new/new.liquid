@@ -22,7 +22,8 @@ append: ';' : '' %}
             <div class="box-new__img core-image-cover h:100%" css="--aspect-ratio: 3/2">
               <img class="pet-product-card__img" src="{{item.featured_image.src | img_url: '1000x'}}" alt="">
               <div class="box-new__buy">
-                <p>ADD TO CART</p>
+                <p class = "box-new__buy-text">ADD TO CART</p>
+                <script class="box-news__products-json3" type="application/json" >{{item | json }}</script>
               </div>
               <div class="box-new__icon">
                 <div class="box-new__arc btn-addlist" data-tooltip="Add to wish list">
