@@ -66,6 +66,7 @@ window.veda.init = function () {
     return storage;
   })();
 
+
   class VedaStore { // Observer Pattern
     constructor(options = {}) {
       this.store = {};

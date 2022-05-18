@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_bd3367d6-e96a-4503-bab0-40efcc2ef44e" %}
+{% set uniqueId = "id_432ca7f3-c67e-4f28-8661-89b183bbc51e" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~ 
 general_settings.color ~  ';' : '' %}
@@ -20,7 +20,7 @@ general_settings.image ~
       {% for item in collection.products%}
       <div class="col-lg-3 col-md-6 col-xs-6">
         <div class="box-new pos:relative">
-            <div class="box-new__img core-image-cover h:100%" css="--aspect-ratio: 3/2">
+            <div class="box-new__img core-image-cover h:100%" css="--aspect-ratio: 3/4">
               <img class="pet-product-card__img" src="{{item.featured_image.src | img_url('1000x')}}" alt="">
               <div class="box-new__buy">
                 <p class = "box-new__buy-text">ADD TO CART</p>

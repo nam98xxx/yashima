@@ -34,6 +34,12 @@
     height: 0px;
   }
 }
+.quick-view__mobile {
+  width:60%;
+  @media (max-width:740px) {
+    width: 100%;
+  }
+}
 
 .box-new__buy {
   width: 100%;

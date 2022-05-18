@@ -2,7 +2,13 @@ const uniqueId = "newarrivals";
 const { store } = veda.utils;
 const { message } = veda.plugins;
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
-
+var cart = [];
+class Store{
+  static setStoreAdd(id){
+    const products =  JSON.parse(localStorage.getItem("addCart")).data;
+    return products.find(product => product.id === id);
+  }
+}
 class CompareAdd {
   constructor() {
     this.init();
@@ -241,8 +247,8 @@ class QuickView {
         this.el.innerHTML = /*html*/ `
         <div class="pos:fixed t:0 l:0 z:999 w:100% h:100%" style="display:flex; align-items: center; justify-content: center;">
         <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="box w:60% h:350px bgc:#fff" >
-        <div class="closeView d:block p:12px" style="/* width: 50px; */max-width: 40px;display: flex;justify-content: center; float:right;">
+        <div class="quick-view__mobile box pos:relative h:350px bgc:#fff" >
+        <div class="closeView pos:absolute d:block p:12px w:100% ta:right">
             <i class="fz:26px c:color-gray9.4 fal fa-times background: #C4C4C4;"></i>
             </div>
         <div class = "h:100%" style="display:flex;">
@@ -250,9 +256,9 @@ class QuickView {
             <img class="product-card__image bd:none! w:900px h:100%" style ="object-fit: cover;" src="${data.featured_image.src}" alt="">
           </div>
           <div style="padding: 30px 17px 17px 25px;">
-            <h2 class="fz:30px" style="padding-bottom: 10px;">${data.title}</h2>
-            <ins class="c:color-dark td:none bd:none! fz:25px">$${data.price}</ins>
-            <div>
+            <h2 class="fz:25px" style="padding-bottom: 10px;">${data.title}</h2>
+            <ins class="c:red td:none bd:none! fz:15x">$${data.price}</ins>
+            <div style="">
               <p style="padding-top: 10px;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias</p>
             </div>
             <div>
@@ -292,6 +298,9 @@ class AddToCart {
       useStorage: true,
     });
   }
+  localStorage(){
+
+  }
   getData() {
     return store.get("addCart");
   }
@@ -300,6 +309,8 @@ class AddToCart {
     this.elIcons.forEach((elIcon) => {
       const dataEl = elIcon.querySelector(".box-news__products-json3");
       const textEl = elIcon.querySelector(".box-new__buy-text");
+      // const dataJSON = JSON.parse(dataEl.textContent);
+      // console.log({...dataJSON, amount : 1});
       let hasId = data.find(
         (item) => item.id === JSON.parse(dataEl.textContent).id
       );
@@ -330,7 +341,7 @@ class AddToCart {
             store.set("addCart", state => {
               return {
                 ...state,
-                data: [...state.data, JSON.parse(dataEl.textContent)]
+                data: [...state.data, {...JSON.parse(dataEl.textContent),amount: 1}]
               }
             })("add/cart")
             hasId = !hasId;
@@ -356,4 +367,3 @@ new CompareAdd();
 new QuickView();
 const colorWrapEls = container.querySelectorAll(".box-new__color");
 colorWrapEls.forEach((el) => new CardColors(el));
-

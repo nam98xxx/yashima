@@ -6,7 +6,7 @@ general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size |
 append: ';' : '' %}
 
-<section data-id="categories" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="newarrivals" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay " css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     {% assign collection = collections[content.collection] %}
@@ -16,130 +16,146 @@ append: ';' : '' %}
       </div>
       <div class="adress__text2"> Product </div>
     </div>
-    <div class="row pb:100px">
+    <div class="row pb:100px viewAs">
       <div class="col-lg-8" style="padding-right:64px;">
         <div class="home-filter pb:30px">
           <div class="home-filter__label">
             <div class="home-filter__text">View as:</div>
             <div class="home-filter__icon mr:10px fw:300">
-              <i class="fa-solid fa-table-list home-filter__icon1"></i>
+              <i class="fa-solid fa-table-list home-filter__icon1" style="color:#e0d3d3">
+                <i class="fal fa-list-ul"></i>
+              </i>
             </div>
             <div class="home-filter__icon">
-              <i class="fa-solid fa-table-cells home-filter__icon2"></i>
+              <i class="fa-solid fa-table-cells home-filter__icon2">
+                <i class="fas fa-th"></i>
+              </i>
             </div>
           </div>
           <div class="home-filter__size">
-            <p class="home-filter__text">Short by</p>
             <div class="home-filter__search">
-              <input type="text" class="home-filter__input" placeholder="Abcxyz">
+              <div class="pos:relative">
+                <div class="home-filter__box pos:relative">
+                  <input type="text" class="home-filter__input" style="padding: 12px 26px 12px 12px;
+                  border: 1px solid var(--color-gray3);
+                  border-radius: inherit;" placeholder="Alphabetically, A-Z">
+                  <div class="home-filter__arrow pos:absolute">
+                    <i class="fal fa-angle-down"></i>
+                  </div>
+                </div>
+                <ul class="shortby mt:5px pos:absolute w:100% bgc:#fff z:888">
+
+                </ul>
+              </div>
             </div>
+
           </div>
         </div>
-        <div class="row product2-new1">
-          {% for item in collection.products %}
-          <div class="col-lg-4">
+        <div class="row contain-new viewas1">
+          {% for item in collection.products%}
+          <div class="col-lg-4 col-md-6 col-xs-6">
             <div class="box-new pos:relative">
-              <a href="{{ item.url }}" class="">
-                <div class="box-new__img core-image-cover" style="height:100%;" css="--aspect-ratio: 3/2">
-                  <img src="{{item.featured_image.src | img_url: '1000x'}}" alt="">
+                <div class="box-new__img core-image-cover h:100%" css="--aspect-ratio: 3/4">
+                  <img class="pet-product-card__img" src="{{item.featured_image.src | img_url: '1000x'}}" alt="">
                   <div class="box-new__buy">
-                    <p>ADD TO CART</p>
+                    <p class = "box-new__buy-text">ADD TO CART</p>
+                    <script class="box-news__products-json3" type="application/json" >{{item | json }}</script>
                   </div>
                   <div class="box-new__icon">
-                    <div class="box-new__arc" data-tooltip="Add to wish list">
+                    <div class="box-new__arc btn-addlist" data-tooltip="Add to wish list">
                       <i class="far fa-heart"></i>
+                      <script class="box-news__products-json1" type="application/json" >{{item | json }}</script>
                     </div>
-                    <div class="box-new__arc box-new__arc--display" data-tooltip="Quick view">
+                    <div class="box-new__arc btn-quickView box-new__arc--display" data-tooltip="Quick view">
                       <i class="far fa-eye"></i>
+                      <script class="box-news__products-json2" type="application/json" >{{item | json }}</script>
                     </div>
-                    <div class="box-new__arc box-new__arc--display" data-tooltip="Compare to other product">
+                    <div class="box-new__arc btn-compare box-new__arc--display" data-tooltip="Compare to other product">
                       <i class="fas fa-exchange-alt"></i>
+                      <script class="box-news__products-json" type="application/json" >{{item | json }}</script>
                     </div>
                   </div>
                 </div>
-              </a>
               {% if item.compare_at_price > item.price and content.sale_enable %}
               <div
                 class="pos:absolute t:20px l:20px pt:4px pr:10px pb:4px pl:10px bgc:#ff5656 c:color-light-freeze bdrs:4px w:63px h:30px ta:center"
                 css="{{ content.sale_design }}">{{ content.sale_text }}</div>
               {% endif %}
-            </div>
-            <div class="box-new__body">
-              <h2 class="box-new__title fz:16px mt:10px mb:10px ta:center">
-                <a href="{{ item.url }}" class="box-new__name fw:600 c:color-gray9">{{ item.title }}</a>
-              </h2>
-            </div>
-            <div class="mt:10px ta:center">
-              <ins class="fw:400 c:color-primary td:none p:2px">${{ item.price }}</ins>
-              {% if item.compare_at_price > item.price %}
-              <del class="p:2px">${{ item.compare_at_price }}</del>
-              {% endif %}
-            </div>
-            <div class="box-new__color">
-              <div class=" box-new__cirkle box-new__color{{item.class3}} bgc:#ffd860"> </div>
-              <div class=" box-new__cirkle box-new__color{{item.class1}} bgc:#c3dee4"></div>
-              <div class=" box-new__cirkle box-new__color{{item.class2}} bgc:#8667de"></div>
-              <div class=" box-new__cirkle box-new__color{{item.class4}} bgc:#8667de"></div>
+              <div class="box-new__body">
+                <h2 class="box-new__title fz:16px mt:10px mb:10px ta:center">
+                  <a href="{{ item.url }}" class="box-new__name fw:600 c:color-gray9">{{ item.title }}</a>
+                </h2>
+              </div>
+              <div class="mt:10px ta:center">
+                <ins class="fw:500 c:color-primary td:none p:2px">${{ item.price }}</ins>
+                {% if item.compare_at_price > item.price %}
+                  <del class="p:2px">${{ item.compare_at_price }}</del>
+                {% endif %}
+              </div>
+              <div class="box-new__color">
+                <script class="box-new__options-json" type="application/json"> {{ item.options_with_values | json }} </script>
+              </div>
+               <script class="box-news__variants-json" type="application/json" >{{item.variants | json }}</script>
             </div>
           </div>
           {% endfor %}
         </div>
-        <div class="product2-new" style="display:none">
-          {% for item in content7.item %}
-            <div class="container pb:40px">
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="product2-new__img h:100%"s>
-                    <img src="{{item.img}}" class="h:100%" alt="">
+        <div class="contain-new viewas2" style = "display:none;">
+          {% for item in collection.products%}
+          <div class="">
+            <div class="box-new pos:relative row pb:30px">
+              <div class="col-lg-4">
+                <div class="box-new__img core-image-cover h:100%" css="--aspect-ratio: 3/4">
+                  <img class="pet-product-card__img" src="{{item.featured_image.src | img_url: '1000x'}}" alt="">
+                  <div class="box-new__buy">
+                    <p class = "box-new__buy-text">ADD TO CART</p>
+                    <script class="box-news__products-json3" type="application/json" >{{item | json }}</script>
                   </div>
-                </div>
-                <div class="col-lg-8">
-                  <div class="product2__box">
-                    <div class="product2__heading">
-                      <p class="product2__headingText">
-                        {{item.heading}}
-                      </p>
+                  <div class="box-new__icon">
+                    <div class="box-new__arc btn-addlist" data-tooltip="Add to wish list">
+                      <i class="far fa-heart"></i>
+                      <script class="box-news__products-json1" type="application/json" >{{item | json }}</script>
                     </div>
-                    <div class="product2__des">
-                      <p class="product2__desText">
-                        {{item.description}}
-                      </p>
+                    <div class="box-new__arc btn-quickView box-new__arc--display" data-tooltip="Quick view">
+                      <i class="far fa-eye"></i>
+                      <script class="box-news__products-json2" type="application/json" >{{item | json }}</script>
                     </div>
-                    <div class="rate d:flex">
-                      <div class="rate__start">
-                        <i class="fa-regular fa-star rate__icon"></i>
-                      </div>
-                      <div class="rate__start">
-                        <i class="fa-regular fa-star rate__icon"></i>
-                      </div>
-                      <div class="rate__start">
-                        <i class="fa-regular fa-star rate__icon"></i>
-                      </div>
-                      <div class="rate__start">
-                        <i class="fa-regular fa-star rate__icon"></i>
-                      </div>
-                      <div class="rate__start">
-                        <i class="fa-regular fa-star rate__icon"></i>
-                      </div>
+                    <div class="box-new__arc btn-compare box-new__arc--display" data-tooltip="Compare to other product">
+                      <i class="fas fa-exchange-alt"></i>
+                      <script class="box-news__products-json" type="application/json" >{{item | json }}</script>
                     </div>
-                    <div class="product2__price">
-                      <p class="product2__priceText">
-                        {{item.price}}
-                      </p>
-                    </div>
-                    {{cirkle.render()}}
-                    <div class="product2__content">
-                      <p class="product2__text">
-                        {{item.text}}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="button-cart">
-                    <a class="button-cart__text c:#fff" >ADD TO CART</a>
                   </div>
                 </div>
               </div>
+              {% if item.compare_at_price > item.price and content.sale_enable %}
+              <div
+                class="pos:absolute t:20px l:20px pt:4px pr:10px pb:4px pl:10px bgc:#ff5656 c:color-light-freeze bdrs:4px w:63px h:30px ta:center"
+                css="{{ content.sale_design }}">{{ content.sale_text }}</div>
+              {% endif %}
+              <div class="box-new__description col-lg-6">
+                <div class="box-new__body">
+                  <h2 class="box-new__title fz:16px mt:10px mb:10px ta:center">
+                    <a href="{{ item.url }}" class="box-new__name fw:600 c:color-gray9">{{ item.title }}</a>
+                  </h2>
+                </div>
+                <div class="mt:10px ta:center">
+                  <ins class="fw:500 c:color-primary td:none p:2px">${{ item.price }}</ins>
+                  {% if item.compare_at_price > item.price %}
+                    <del class="p:2px">${{ item.compare_at_price }}</del>
+                  {% endif %}
+                </div>
+                <div class="box-new__body">
+                  <h2 class="box-new__title fz:16px mt:10px mb:10px ta:center">
+                    <a href="{{ item.url }}" class="box-new__name c:color-gray9">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et.</a>
+                  </h2>
+                </div>
+                <div class="box-new__color">
+                  <script class="box-new__options-json" type="application/json"> {{ item.options_with_values | json }} </script>
+                </div>
+                 <script class="box-news__variants-json" type="application/json" >{{item.variants | json }}</script>
+              </div>
             </div>
+          </div>
           {% endfor %}
         </div>
       </div>
@@ -223,4 +239,3 @@ append: ';' : '' %}
     </div>
   </div>
 </section>
-<script src="./products.js"></script>

@@ -7,7 +7,7 @@ class CountProducts {
     this.init();
     store.subscribe("addList", this.init.bind(this));
     store.subscribe("compare", this.init.bind(this));
-    store.subscribe("addCart",this.init.bind(this));
+    store.subscribe("addCart", this.init.bind(this));
   }
   getData() {
     return store.get("compare");
@@ -56,9 +56,9 @@ class CountProducts {
     countEl.innerHTML = this.render3();
   }
   init() {
-   this.position();
-   this.position2();
-   this.position3();
+    this.position();
+    this.position2();
+    this.position3();
   }
 }
 class OpenTheComparisonBox {
@@ -342,6 +342,7 @@ class OpenTheCompareAdd {
   constructor() {
     this.el = this.createComparePortal();
     this.elAddIcon = document.querySelector(".fa-shopping-bag");
+    this.elIcons = document.querySelectorAll(".box-new__buy");
     this.mounted();
     this.init();
     store.subscribe("addCart", this.init.bind(this));
@@ -370,54 +371,85 @@ class OpenTheCompareAdd {
       };
     })("AddCart/Visible");
   }
-  handleDelete(event){
-    console.log(event.currentTarget);
+  handleDelete(event) {
     store.set("addCart", (state) => {
       return {
         ...state,
         data: state.data.filter((item) => item.id !== event.currentTarget.id),
-      }
+      };
     })("RemoveCard");
   }
-  handleAddCart(){
+  handleAddCart() {
     const { visible } = this.getData();
-    if(visible){
+    if (visible) {
       const buttonCLoseEl = document.querySelector(".close3");
-      buttonCLoseEl.addEventListener("click", this.handleComparisonWishList.bind(this));
+      buttonCLoseEl.addEventListener(
+        "click",
+        this.handleComparisonWishList.bind(this)
+      );
     }
-    if(visible) {
+    if (visible) {
       const deleteEls = document.querySelectorAll(".delete-card");
-      deleteEls.forEach(deleteEl => {
-      deleteEl.parentNode.addEventListener("click",this.handleDelete.bind(this));
-     })
+      deleteEls.forEach((deleteEl) => {
+        deleteEl.parentNode.addEventListener(
+          "click",
+          this.handleDelete.bind(this)
+        );
+      });
     }
   }
-
+  renderBeforeUpdate(){
+    const { visible, data } = this.getData();
+    if(visible){
+      const buttonEls = document.querySelectorAll(".buttons_added");
+      buttonEls.forEach((buttonEl,index) => {
+        const plusEl = buttonEl.querySelector(".plus");
+        const minusEl = buttonEl.querySelector(".minus");
+        const inputEl = buttonEl.querySelector(".input-qty");
+        plusEl.addEventListener("click",() => {
+          this.updateItem(index,Number(inputEl.value) + 1);
+        })
+        minusEl.addEventListener("click",() => {
+          if(inputEl.value > 1){
+            this.updateItem(index,Number(inputEl.value) - 1);
+          }
+        })
+     })
+   }
+  }
+  updateItem(index,quantity){
+    const {visible, data} = this.getData();
+    data[index].amount = quantity;
+    this.init();
+  }
   render() {
     const { visible, data } = this.getData();
-    let totals = this.total();
+    let totals = 0
+    data.forEach((dataItem) => {
+      totals += dataItem.price * dataItem.amount;
+    })
+    let template;
     if (!visible) {
-      console.log(123);
-      return " ";
+      template = ` `;
     }
-    if (data.length === 0) {
-      return /*html*/ `
+    if(visible){
+      if(data.length === 0) {
+        template = `
       <div class="pos:fixed t:0 l:0 z:999 w:100% h:100%" style="display:flex; align-items: center;">
-      <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-      <div class="box w:400px h:100% bgc:#fff ovy:auto pos:relative" >
-        <div class = "ml:auto close3 pos:absolute r:0">
-          <div class="close2 d:block ml:auto p:12px" style="">
-           <i class="fz:26px c:color-gray9.4 fal fa-times background: #C4C4C4;"></i>
+        <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+        <div class="box w:400px h:100% bgc:#fff ovy:auto pos:relative" >
+          <div class = "ml:auto close3 pos:absolute r:0">
+            <div class="close2 d:block ml:auto p:12px" style="">
+             <i class="fz:26px c:color-gray9.4 fal fa-times background: #C4C4C4;"></i>
+             </div>
            </div>
-         </div>
-      <div class="h:100% d:flex fld:column jc:center" >
-         <h1 class ="ta:center m:100px">CART IS EMPTY(CART)</h1>
-      </div>
-      `;
-    }
-    return /*html */ `
-    <div class="pos:fixed t:0 l:0 z:999 w:100% h:100%" style="display:flex; align-items: center;">
-       <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+        <div class="h:100% d:flex fld:column jc:center" >
+           <h1 class ="ta:center m:100px">CART IS EMPTY(CART)</h1>
+        </div>
+      `
+      } else {
+        template = ` <div class="pos:fixed t:0 l:0 z:999 w:100% h:100%" style="display:flex; align-items: center;">
+        <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
        <div class="box w:400px h:100% bgc:#fff" >
        <div class="close3 d:block p:12px" style="/* width: 50px; */max-width: 40px;display: flex;justify-content: center; margin-left:auto">
        <i class="fz:26px c:color-gray9.4 fal fa-times background: #C4C4C4;"></i>
@@ -426,27 +458,29 @@ class OpenTheCompareAdd {
           <h4 class="fz:30px ta:center" > Shopping Cart </h4>
        </div>
        <div class="h:100% pos:relative" >
-          <div class="h:60% ovx:auto">
-       ${map(
-         data,
-         (item) => /*html*/ `
-         <div class="pet-product-card__image jc:space-between" style="display:flex; border-bottom: 1px solid #ccc; ">
+          <div class="h:60% ovx:auto pet-card">
+       ${map( data, (item) => /*html*/ `
+         <div class="pet-card__item jc:space-between" style="display:flex; border-bottom: 1px solid #ccc; ">
            <div class="w:50%">
               <a href="#" class="core-image-cover d:block bd:none!" css="--aspect-ratio: 3/5">
-              <img class="product-card__image bd:none!" src="${item.featured_image.src}" alt="">
+              <img class=" bd:none!" src="${item.featured_image.src}" alt="">
               </a>
            </div>
-           <div class="pr:15px">
-              <div class="product-card__brand c:color-gray5 mt:11px">${item.vendor}</div>
-              <a class="product-card__price mt:14px bd:none!" href="#">
-                 <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">Price:${item.price}$</ins>
+           <div class="pr:15px cart-amount">
+              <div class=" c:color-gray5 mt:11px">${item.vendor}</div>
+              <a class=" mt:14px bd:none!" href="#">
+                 <ins class=" fw:500 fz:15px c:color-primary td:none bd:none!">Price:${item.price}$</ins>
+                 <ins class=" getPrice d:none fw:500 fz:15px c:color-primary td:none bd:none!">${item.price}</ins>
                </a>
                <div class="d:flex p:14px_0">
-                <div class="cart-quantity cart-column">
-                  <input class="maw:81px cart-quantity-input" type="number" min="1" value="1">
-                </div>
+                    <div class="buttons_added">
+                         <input class="minus is-form" type="button" value="-">
+                         <input aria-label="quantity" class="input-qty" max="Số tối đa" min="Số tối thiểu" name="" type="number" style="width:48px;" value = "${item.amount}">
+                         <ins class=" getPrice d:none fw:500 fz:15px c:color-primary td:none bd:none!">${item.price}</ins>
+                         <input class="plus is-form" type="button" value="+">
+                    </div>
                 <div id=${item.id} class="ta:center ml:10px " >
-                     <button class = "h:100% delete-card background:red" >
+                     <button class = "h:100% delete-card" style = "background: #a52828;" >
                          <i class="fas fa-trash-alt"></i>
                      </button> </div>
                  </div>
@@ -455,27 +489,77 @@ class OpenTheCompareAdd {
        `
        )}
        </div>
-       <div class="pos:absolute b:96px w:100%" style="background: #e2e2e2;border-radius: 35px;">
-            <div class="p:14px_0" style="display: flex ;justify-content: space-between;padding: 20px 10px;" >
-               <div class="fz:18px">Total Bill</div>
-               <div class="fz:18px">${totals}</div>
+       <div class="pos:absolute b:96px w:100% " style="background: #e2e2e2;border-radius: 35px;">
+            <div class="p:14px_0 pos:relative" style="display: flex ;justify-content: space-between;padding: 10px 30px;" >
+               <div class="fz:18px" style = "width: 100px;">
+                <span>Total Bill</span>
+               </div>
+               <div class = "flag w:100% d:flex ai:center  ">
+                  <div class = "flag__Money d:flex" style = " justify-content: center;
+                  align-items: center;
+                  width: 25px;
+                  height: 25px;
+                  background-color: #6B8068;
+                  border-radius: 25px;
+                  font-size: 8px;
+                  " >
+                    <span class = "flag__Money-Text c:#fff" style = "flag__USD-Text cursor: pointer;">USD</span>
+                  </div>
+               </div>
+               <div class=" total pos:absolute r:20px">${totals}$</div>
             </div>
             <div class="">
               <button class="w:100% p:15px_0" style="border-radius: initial;"> Payment </button>
             </div>
        </div>
        </div>
-    `;
+       `
+      }
+    }
+    this.el.innerHTML = template;
+    this.renderBeforeUpdate();
   }
-  total(){
+  total() {
     const { visible, data } = this.getData();
-    let total = data.reduce((previousValue,currentValue) => previousValue + currentValue.price,0);
+    const EXCHANGE__RATE = 23000;
+    let total = data.reduce(
+      (previousValue, currentValue) => previousValue + currentValue.price,
+      0
+    );
     return total;
   }
-
+  changeMoney() {
+    const { visible, data } = this.getData();
+    let totals = this.total();
+    const EXCHANGE__RATE = 23000;
+    if (visible) {
+      if(data.length > 0){
+        const moneyEl = document.querySelector(".flag__Money");
+        const totalEl = document.querySelector(".total");
+        const text = moneyEl.querySelector(".flag__Money-Text");
+        const defaultUSD = totalEl.innerHTML;
+        moneyEl.addEventListener("click", () => {
+          if (text.innerHTML === "USD") {
+            let formatUSD = new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            }).format(totals * EXCHANGE__RATE);
+            totalEl.innerHTML = formatUSD;
+            text.innerHTML = "VND";
+            moneyEl.style.background = "red";
+          } else {
+            totalEl.innerHTML = defaultUSD;
+            moneyEl.style.background = "#6B8068";
+            text.innerHTML = "USD";
+          }
+        });
+      }
+    }
+  }
   init() {
-   this.el.innerHTML = this.render();
-   this.handleAddCart();
+    this.render();
+    this.handleAddCart();
+    this.changeMoney();
   }
 }
 
@@ -522,11 +606,87 @@ new OpenTheComparisonWishList();
 new OpenTheComparisonBox();
 new OpenMenuMobile();
 
-{/* <div class="pos:absolute b:79px b:0" style="background: #e2e2e2;border-radius: 35px;">
-         <div class="p:14px_0" style="display: flex;width: 400px;justify-content: space-between;padding: 20px 10px;" >
-           <div class="fz:18px">Total Bill</div>
-         </div>
-         <div class="">
-             <button class="w:100% p:15px_0" style="border-radius: initial;"> Payment </button>
-         </div>
-       </div> */}
+
+
+// if (data.length === 0) {
+    //   return /*html*/ `
+    //   <div class="pos:fixed t:0 l:0 z:999 w:100% h:100%" style="display:flex; align-items: center;">
+    //   <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+    //   <div class="box w:400px h:100% bgc:#fff ovy:auto pos:relative" >
+    //     <div class = "ml:auto close3 pos:absolute r:0">
+    //       <div class="close2 d:block ml:auto p:12px" style="">
+    //        <i class="fz:26px c:color-gray9.4 fal fa-times background: #C4C4C4;"></i>
+    //        </div>
+    //      </div>
+    //   <div class="h:100% d:flex fld:column jc:center" >
+    //      <h1 class ="ta:center m:100px">CART IS EMPTY(CART)</h1>
+    //   </div>
+    //   `;
+    // // }
+
+
+    // return /*html */ `
+    // <div class="pos:fixed t:0 l:0 z:999 w:100% h:100%" style="display:flex; align-items: center;">
+    //    <div class="pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+    //    <div class="box w:400px h:100% bgc:#fff" >
+    //    <div class="close3 d:block p:12px" style="/* width: 50px; */max-width: 40px;display: flex;justify-content: center; margin-left:auto">
+    //    <i class="fz:26px c:color-gray9.4 fal fa-times background: #C4C4C4;"></i>
+    //    </div>
+    //    <div class="" >
+    //       <h4 class="fz:30px ta:center" > Shopping Cart </h4>
+    //    </div>
+    //    <div class="h:100% pos:relative" >
+    //       <div class="h:60% ovx:auto pet-card">
+    //    ${map( data, (item) => /*html*/ `
+    //      <div class="pet-card__item jc:space-between" style="display:flex; border-bottom: 1px solid #ccc; ">
+    //        <div class="w:50%">
+    //           <a href="#" class="core-image-cover d:block bd:none!" css="--aspect-ratio: 3/5">
+    //           <img class=" bd:none!" src="${item.featured_image.src}" alt="">
+    //           </a>
+    //        </div>
+    //        <div class="pr:15px cart-amount">
+    //           <div class=" c:color-gray5 mt:11px">${item.vendor}</div>
+    //           <a class=" mt:14px bd:none!" href="#">
+    //              <ins class=" fw:500 fz:15px c:color-primary td:none bd:none!">Price:${item.price}$</ins>
+    //              <ins class=" getPrice d:none fw:500 fz:15px c:color-primary td:none bd:none!">${item.price}</ins>
+    //            </a>
+    //            <div class="d:flex p:14px_0">
+    //             <div class="cart-quantity cart-column">
+    //               <input class="maw:81px cart-quantity-input" type="number" min="1" value = "${item.amount}">
+    //               <ins class=" getPrice d:none fw:500 fz:15px c:color-primary td:none bd:none!">${item.price}</ins>
+    //             </div>
+    //             <div id=${item.id} class="ta:center ml:10px " >
+    //                  <button class = "h:100% delete-card" style = "background: #a52828;" >
+    //                      <i class="fas fa-trash-alt"></i>
+    //                  </button> </div>
+    //              </div>
+    //            </div>
+    //        </div>
+    //    `
+    //    )}
+    //    </div>
+    //    <div class="pos:absolute b:96px w:100% " style="background: #e2e2e2;border-radius: 35px;">
+    //         <div class="p:14px_0 pos:relative" style="display: flex ;justify-content: space-between;padding: 10px 30px;" >
+    //            <div class="fz:18px" style = "width: 100px;">
+    //             <span>Total Bill</span>
+    //            </div>
+    //            <div class = "flag w:100% d:flex ai:center  ">
+    //               <div class = "flag__Money d:flex" style = " justify-content: center;
+    //               align-items: center;
+    //               width: 25px;
+    //               height: 25px;
+    //               background-color: #6B8068;
+    //               border-radius: 25px;
+    //               font-size: 8px;
+    //               " >
+    //                 <span class = "flag__Money-Text c:#fff" style = "flag__USD-Text cursor: pointer;">USD</span>
+    //               </div>
+    //            </div>
+    //            <div class=" total pos:absolute r:20px">${totals}$</div>
+    //         </div>
+    //         <div class="">
+    //           <button class="w:100% p:15px_0" style="border-radius: initial;"> Payment </button>
+    //         </div>
+    //    </div>
+    //    </div>
+    // `;

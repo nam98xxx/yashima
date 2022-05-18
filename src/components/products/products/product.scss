@@ -47,12 +47,14 @@
   display: inline-block;
   color: var(--color-gray3);
 }
-
 .adress .adress__text2 {
   display: inline-block;
   color: var(--color-dark);
 }
 //
+.shortby__item {
+  padding:12px 15px;
+}
 .home-filter {
   display: flex;
   -webkit-box-pack: justify;
@@ -68,12 +70,6 @@
       -ms-flex-align: center;
           align-items: center;
 }
-
-.home-filter__input {
-  padding: 12px 26px 12px 12px;
-  border: 1px solid var(--color-gray3);
-}
-
 .home-filter__search {
   margin-left: 10px;
 }
@@ -144,6 +140,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.home-filter__arrow {
+  transform: translateY(-50%);
+  top: 50%;
+  right: 20px;
 }
 .rate__start {
   font-size: 20px;
